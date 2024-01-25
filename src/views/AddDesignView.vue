@@ -35,7 +35,7 @@ export default defineComponent({
       newNumber: currentDesign?.number || "",
       title: currentDesign?.title || "",
       link: currentDesign?.link || "",
-      isPublished: currentDesign.isPublished || false,
+      isPublished: currentDesign?.isPublished || false,
       isErrorMessageShown: false,
       currentPhotoIndex: -1,
     };
@@ -241,6 +241,7 @@ export default defineComponent({
         v-if="currentDesign"
         text="Видалити"
         :specialStyles="true"
+        @click.prevent="removeDesign"
       />
       <CustomButton text="Зберегти і вийти" @click.prevent="addDesign" />
     </div>

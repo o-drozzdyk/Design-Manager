@@ -18,14 +18,12 @@ export default {
 <style lang="scss">
 .page {
   position: relative;
-  // width: 100%;
 }
 
 .main-content {
   margin-left: 40px;
   padding: 24px 32px 0;
   min-height: calc(100vh - 24px);
-  // width: fit-content;
 }
 
 #app {
