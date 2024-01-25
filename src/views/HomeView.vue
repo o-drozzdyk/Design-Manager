@@ -32,8 +32,8 @@ export default defineComponent({
 
 <template>
   <div class="home">
-    <div class="top-bar">
-      <h2 class="title">Всі дизайни</h2>
+    <div class="home-top-bar">
+      <h2 class="home-top-bar-title">Всі дизайни</h2>
       <CustomButton text="Додати дизайн" @click.prevent="handleButtonClick" />
     </div>
 
@@ -41,19 +41,20 @@ export default defineComponent({
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .home {
   background-color: rgba(44, 61, 57, 1);
-}
+  padding-bottom: 24px;
 
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  &-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.title {
-  font-size: 24px;
-  color: rgba(255, 255, 255, 1);
+    &-title {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 1);
+    }
+  }
 }
 </style>

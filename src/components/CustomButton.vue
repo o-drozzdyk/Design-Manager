@@ -17,12 +17,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <button class="custom-button" :class="{ 'special-style': specialStyles }">
+  <button
+    class="custom-button"
+    :class="{ 'custom-button--special-style': specialStyles }"
+  >
     {{ text }}
   </button>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .custom-button {
   box-sizing: border-box;
   padding-inline: 11px;
@@ -37,21 +40,21 @@ export default defineComponent({
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
   transition: background-color ease-in-out 0.3s;
-}
 
-.custom-button:hover {
-  background-color: rgba(44, 112, 209, 1);
-}
+  &:hover {
+    background-color: rgba(44, 112, 209, 1);
+  }
 
-.special-style {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: white;
-  color: rgba(230, 22, 16, 1);
-}
+  &--special-style {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    color: rgba(230, 22, 16, 1);
 
-.special-style:hover {
-  border: 1px solid rgba(0, 0, 0, 0.35);
-  background-color: white;
-  transition: border-color ease-in-out 0.3s;
+    &:hover {
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      background-color: white;
+      transition: border-color ease-in-out 0.3s;
+    }
+  }
 }
 </style>

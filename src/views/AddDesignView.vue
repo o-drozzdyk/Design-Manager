@@ -41,8 +41,8 @@ export default defineComponent({
     };
   },
   methods: {
-    onFileSelected(event: any) {
-      const input = event.target;
+    onFileSelected(event: Event) {
+      const input = event.target as HTMLInputElement;
       const files = input.files;
       if (files && files.length > 0) {
         const selectedFile = files[0];
@@ -50,7 +50,7 @@ export default defineComponent({
       }
       input.value = "";
     },
-    savePhoto(file: any) {
+    savePhoto(file: File) {
       const reader = new FileReader();
       reader.onload = () => {
         this.selectedPhotos.push(reader.result);
@@ -132,49 +132,56 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="add-page">
-    <div class="container">
+  <div class="page">
+    <div class="page-container">
       <GoBackButton />
 
       <div class="form-container">
-        <div class="toggle-info">
+        <div class="toggle">
           <div
-            class="toggle"
-            :class="{ 'toggle-active': isPublished }"
+            class="toggle-button"
+            :class="{ 'toggle-button-active': isPublished }"
             @click="togglePublished"
           >
-            <div class="circle"></div>
+            <div class="toggle-button-circle"></div>
           </div>
 
-          <span class="text" :class="{ 'text-active': isPublished }">{{
-            isPublished ? "Опублікований" : "Неопублікований"
-          }}</span>
+          <span
+            class="toggle-text"
+            :class="{ 'toggle-text-active': isPublished }"
+          >
+            {{ isPublished ? "Опублікований" : "Неопублікований" }}
+          </span>
         </div>
 
         <div class="photos-container" v-if="selectedPhotos.length > 0">
           <div
-            class="photo-wrapper"
+            class="photos-container-wrapper"
             v-for="(photoUrl, index) in selectedPhotos"
             :key="photoUrl"
             @mouseover="showDeleteIcon(index)"
             @mouseout="hideDeleteIcon(index)"
           >
-            <img :src="photoUrl" alt="Selected image" class="selected-photo" />
+            <img
+              :src="photoUrl"
+              alt="Selected image"
+              class="photos-container-wrapper-selected-photo"
+            />
 
             <img
               src="img/icons/delete.svg"
               alt="Delete"
-              class="icon-delete"
+              class="photos-container-wrapper-delete"
               @click="removePhoto(photoUrl)"
               v-if="currentPhotoIndex === index"
             />
           </div>
 
-          <label for="fileInput" class="photo-container--small">
+          <label for="fileInput" class="photos-container-wrapper--small">
             <img
               src="img/icons/union.svg"
               alt="Empty image"
-              class="plus-icon"
+              class="photos-container-wrapper--small-plus"
             />
           </label>
           <input
@@ -182,22 +189,26 @@ export default defineComponent({
             type="file"
             accept=".jpg, .png, .svg"
             @change="onFileSelected"
-            class="hidden-input"
+            class="input-hidden"
           />
         </div>
 
         <label for="fileInput" class="photo-container" v-else>
-          <img src="img/icons/image.svg" alt="Empty image" class="photo-icon" />
+          <img
+            src="img/icons/image.svg"
+            alt="Empty image"
+            class="photo-container-photo-icon"
+          />
         </label>
         <input
           id="fileInput"
           type="file"
           accept=".jpg, .png, .svg"
           @change="onFileSelected"
-          class="hidden-input"
+          class="input-hidden"
         />
 
-        <div class="info">
+        <div class="form-container-info">
           <input
             type="text"
             placeholder="###"
@@ -220,23 +231,25 @@ export default defineComponent({
         />
 
         <transition name="fade">
-          <div v-if="isErrorMessageShown" class="error-container">
-            <div class="error-container-top">
+          <div v-if="isErrorMessageShown" class="form-container-error-message">
+            <div class="form-container-error-message-top">
               <img
                 src="img/icons/close.svg"
                 alt="Close"
-                class="close-icon"
+                class="form-container-error-message-top-icon-close"
                 @click="closeErrorMessage"
               />
             </div>
 
-            <p class="error-text">Заповніть всі поля форми</p>
+            <p class="form-container-error-message-text">
+              Заповніть всі поля форми
+            </p>
           </div>
         </transition>
       </div>
     </div>
 
-    <div class="buttons">
+    <div class="page-buttons">
       <CustomButton
         v-if="currentDesign"
         text="Видалити"
@@ -248,15 +261,21 @@ export default defineComponent({
   </div>
 </template>
 
-<style>
-.add-page {
+<style lang="scss" scoped>
+.page {
   display: flex;
   justify-content: space-between;
-}
 
-.container {
-  display: flex;
-  gap: 96px;
+  &-container {
+    display: flex;
+    gap: 96px;
+    padding-bottom: 24px;
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 8px;
+  }
 }
 
 .form-container {
@@ -265,47 +284,80 @@ export default defineComponent({
   gap: 24px;
   /* width: 400px; */
   width: 600px;
-}
 
-.toggle-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  &-info {
+    display: flex;
+    gap: 8px;
+  }
+
+  &-error-message {
+    width: auto;
+    border-radius: 3px;
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 1);
+
+    &-top {
+      display: flex;
+      justify-content: flex-end;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      background-color: rgba(0, 0, 0, 0.1);
+
+      &-icon-close {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+    }
+
+    &-text {
+      padding: 24px;
+      color: rgba(230, 22, 16, 1);
+      font-size: 18px;
+    }
+  }
 }
 
 .toggle {
   display: flex;
   align-items: center;
-  width: 64px;
-  height: 24px;
-  border-radius: 14px;
-  background-color: rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.toggle-active {
-  justify-content: flex-end;
   gap: 10px;
-  background-color: rgba(122, 177, 14, 1);
-}
 
-.text {
-  color: rgba(34, 34, 34, 1);
-  font-size: 14px;
-}
+  &-button {
+    display: flex;
+    align-items: center;
+    width: 64px;
+    height: 24px;
+    border-radius: 14px;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 
-.text-active {
-  color: rgba(105, 151, 7, 1);
-}
+    &-active {
+      justify-content: flex-end;
+      gap: 10px;
+      background-color: rgba(122, 177, 14, 1);
+    }
 
-.circle {
-  margin-inline: 2px;
-  width: 20px;
-  height: 20px;
-  border-radius: 14px;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    &-circle {
+      margin-inline: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 14px;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &-text {
+    color: rgba(34, 34, 34, 1);
+    font-size: 14px;
+
+    &-active {
+      color: rgba(105, 151, 7, 1);
+    }
+  }
 }
 
 .photos-container {
@@ -314,41 +366,61 @@ export default defineComponent({
   gap: 8px;
   flex-wrap: wrap;
   align-items: flex-start;
-}
 
-.photo-wrapper {
-  position: relative;
-  width: fit-content;
-  height: fit-content;
-}
+  &-wrapper {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
 
-.icon-delete {
-  position: absolute;
-  bottom: 6px;
-  right: 4px;
-  width: 16px;
-  height: 16px;
-  padding: 4px;
-  border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.5);
-}
+    &-selected-photo {
+      box-sizing: border-box;
+      width: 120px;
+      height: auto;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
 
-.selected-photo {
-  box-sizing: border-box;
-  width: 120px;
-  height: auto;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        background-color: rgba(255, 255, 255, 1);
+        opacity: 0.7;
+        cursor: grab;
+      }
+    }
 
-.selected-photo:hover {
-  border-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  background-color: rgba(255, 255, 255, 1);
-  opacity: 0.7;
-  cursor: grab;
+    &-delete {
+      position: absolute;
+      bottom: 6px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      padding: 4px;
+      border-radius: 3px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &--small {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+      width: 120px;
+      height: 120px;
+      border: 2px dashed rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      color: rgba(0, 0, 0, 1);
+      background-color: rgba(255, 255, 255, 1);
+      cursor: pointer;
+
+      &-plus {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
 }
 
 .photo-container {
@@ -364,41 +436,12 @@ export default defineComponent({
   color: rgba(0, 0, 0, 1);
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
-}
 
-.photo-container--small {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 16px;
-  width: 120px;
-  height: 120px;
-  border: 2px dashed rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-  color: rgba(0, 0, 0, 1);
-  background-color: rgba(255, 255, 255, 1);
-  cursor: pointer;
-}
-
-.photo-icon {
-  margin: 0;
-  width: 60px;
-  height: 48px;
-}
-
-.plus-icon {
-  width: 30px;
-  height: 30px;
-}
-
-.info {
-  display: flex;
-  gap: 8px;
-}
-
-.hidden-input {
-  display: none;
+  &-photo-icon {
+    margin: 0;
+    width: 60px;
+    height: 48px;
+  }
 }
 
 .input {
@@ -406,53 +449,24 @@ export default defineComponent({
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   font-size: 14px;
-}
 
-.input-number {
-  width: 80px;
-  height: 32px;
-}
+  &-hidden {
+    display: none;
+  }
 
-.input-title {
-  width: 100%;
-}
+  &-number {
+    width: 80px;
+    height: 32px;
+  }
 
-.input-url {
-  width: auto;
-  height: 32px;
-}
+  &-title {
+    width: 100%;
+  }
 
-.buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.error-container {
-  width: auto;
-  border-radius: 3px;
-  border-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  background-color: rgba(255, 255, 255, 1);
-}
-
-.error-container-top {
-  display: flex;
-  justify-content: flex-end;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.close-icon {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.error-text {
-  padding: 24px;
-  color: rgba(230, 22, 16, 1);
-  font-size: 18px;
+  &-url {
+    width: auto;
+    height: 32px;
+  }
 }
 
 .fade-enter-active,

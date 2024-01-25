@@ -11,19 +11,19 @@ export default {
 <template>
   <div class="page">
     <LeftPanel />
-    <router-view class="main-content" />
+    <router-view class="page-content" />
   </div>
 </template>
 
 <style lang="scss">
 .page {
   position: relative;
-}
 
-.main-content {
-  margin-left: 40px;
-  padding: 24px 32px 0;
-  min-height: calc(100vh - 24px);
+  &-content {
+    margin-left: 40px;
+    padding: 24px 32px 0;
+    min-height: calc(100vh - 24px);
+  }
 }
 
 #app {
@@ -32,19 +32,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  // padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  color: rgba(255, 255, 255, 1);
 }
 </style>

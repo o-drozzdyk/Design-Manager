@@ -1,14 +1,15 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { Router } from "vue-router";
 
-export default {
+export default defineComponent({
   name: "GoBackButton",
   methods: {
     goBack(this: { $router: Router }) {
       this.$router.push("/");
     },
   },
-};
+});
 </script>
 
 <template>
