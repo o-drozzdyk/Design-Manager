@@ -1,14 +1,36 @@
+<script lang="ts">
+import LeftPanel from "@/components/LeftPanel.vue";
+
+export default {
+  components: {
+    LeftPanel,
+  },
+};
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="page">
+    <LeftPanel />
+    <router-view class="main-content" />
+  </div>
 </template>
 
 <style lang="scss">
+.page {
+  position: relative;
+  // width: 100%;
+}
+
+.main-content {
+  margin-left: 40px;
+  padding: 24px 32px 0;
+  min-height: calc(100vh - 24px);
+  // width: fit-content;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -16,7 +38,7 @@
 }
 
 nav {
-  padding: 30px;
+  // padding: 30px;
 
   a {
     font-weight: bold;

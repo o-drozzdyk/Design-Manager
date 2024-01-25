@@ -1,18 +1,59 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
-</template>
-
 <script lang="ts">
+import CustomButton from "@/components/CustomButton.vue";
+import DesignList from "@/components/DesignList.vue";
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import { Router } from "vue-router";
 
 export default defineComponent({
-  name: "HomeView",
   components: {
-    HelloWorld,
+    CustomButton,
+    DesignList,
+  },
+  data() {
+    let designs = [];
+    const jsonDesigns = localStorage.getItem("designs") || "[]";
+
+    try {
+      designs = JSON.parse(jsonDesigns);
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
+
+    return {
+      designs,
+    };
+  },
+  methods: {
+    handleButtonClick(this: { $router: Router }) {
+      this.$router.push("add");
+    },
   },
 });
 </script>
+
+<template>
+  <div class="home">
+    <div class="top-bar">
+      <h2 class="title">Всі дизайни</h2>
+      <CustomButton text="Додати дизайн" @click.prevent="handleButtonClick" />
+    </div>
+
+    <DesignList :designs="designs" />
+  </div>
+</template>
+
+<style>
+.home {
+  background-color: rgba(44, 61, 57, 1);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 1);
+}
+</style>
