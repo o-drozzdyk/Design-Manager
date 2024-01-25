@@ -1,4 +1,7 @@
-# horoshop_testtask
+# Khoroshop test task
+
+## Demo
+Check out the [demo](https://o-drozzdyk.github.io/Khoroshop-test-task/) to experience the project.
 
 ## Project setup
 ```
