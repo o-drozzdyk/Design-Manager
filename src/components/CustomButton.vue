@@ -26,6 +26,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/mixins.scss";
+
 .custom-button {
   box-sizing: border-box;
   padding-inline: 11px;
@@ -40,6 +42,14 @@ export default defineComponent({
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
   transition: background-color ease-in-out 0.3s;
+
+  @include onTablet {
+    font-size: 12px;
+  }
+
+  @include onPhone {
+    font-size: 12px;
+  }
 
   &:hover {
     background-color: rgba(44, 112, 209, 1);

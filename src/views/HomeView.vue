@@ -42,9 +42,15 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
+@import "@/assets/mixins.scss";
+
 .home {
   background-color: rgba(44, 61, 57, 1);
   padding-bottom: 24px;
+
+  @include onPhone {
+    min-width: max-content;
+  }
 
   &-top-bar {
     display: flex;
@@ -54,6 +60,14 @@ export default defineComponent({
     &-title {
       font-size: 24px;
       color: rgba(255, 255, 255, 1);
+
+      @include onTablet {
+        font-size: 20px;
+      }
+
+      @include onPhone {
+        font-size: 18px;
+      }
     }
   }
 }

@@ -21,10 +21,17 @@ export default defineComponent({
   />
 </template>
 
-<style>
+<style lang="scss">
+@import "@/assets/mixins.scss";
+
 .arrow {
   width: 24px;
   height: 24px;
   cursor: pointer;
+
+  @include onPhone {
+    width: 20px;
+    height: 20px;
+  }
 }
 </style>

@@ -262,19 +262,40 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/mixins.scss";
+
 .page {
   display: flex;
   justify-content: space-between;
+
+  @include onPhone {
+    flex-direction: column;
+    justify-content: initial;
+    width: max-content;
+  }
 
   &-container {
     display: flex;
     gap: 96px;
     padding-bottom: 24px;
+
+    @include onTablet {
+      gap: 32px;
+    }
+
+    @include onPhone {
+      flex-direction: column;
+      gap: 40px;
+    }
   }
 
   &-buttons {
     display: flex;
     gap: 8px;
+
+    @include onPhone {
+      align-self: flex-end;
+    }
   }
 }
 
@@ -282,8 +303,16 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 24px;
-  /* width: 400px; */
   width: 600px;
+
+  @include onTablet {
+    width: 340px;
+  }
+
+  @include onPhone {
+    width: 240px;
+    gap: 16px;
+  }
 
   &-info {
     display: flex;
@@ -315,6 +344,10 @@ export default defineComponent({
       padding: 24px;
       color: rgba(230, 22, 16, 1);
       font-size: 18px;
+
+      @include onPhone {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -354,6 +387,10 @@ export default defineComponent({
     color: rgba(34, 34, 34, 1);
     font-size: 14px;
 
+    @include onTablet {
+      font-size: 12px;
+    }
+
     &-active {
       color: rgba(105, 151, 7, 1);
     }
@@ -366,6 +403,10 @@ export default defineComponent({
   gap: 8px;
   flex-wrap: wrap;
   align-items: flex-start;
+
+  @include onPhone {
+    justify-content: space-between;
+  }
 
   &-wrapper {
     position: relative;
@@ -429,7 +470,6 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   margin-bottom: 16px;
-  width: 600px;
   height: 120px;
   border: 2px dashed rgba(0, 0, 0, 0.1);
   border-radius: 3px;
@@ -445,10 +485,15 @@ export default defineComponent({
 }
 
 .input {
+  box-sizing: border-box;
   padding-left: 8px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   font-size: 14px;
+
+  @include onTablet {
+    font-size: 12px;
+  }
 
   &-hidden {
     display: none;
@@ -457,6 +502,10 @@ export default defineComponent({
   &-number {
     width: 80px;
     height: 32px;
+
+    @include onPhone {
+      width: 60px;
+    }
   }
 
   &-title {

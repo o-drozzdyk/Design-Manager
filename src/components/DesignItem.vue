@@ -32,6 +32,8 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/mixins.scss";
+
 .item {
   display: flex;
   flex-direction: column;
@@ -44,6 +46,11 @@ export default defineComponent({
     width: 300px;
     height: 400px;
     box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.05);
+
+    @include onPhone {
+      width: 240px;
+      height: 320px;
+    }
   }
 
   &-bottom-info {
@@ -64,6 +71,10 @@ export default defineComponent({
 
     &-title {
       font-size: 16px;
+
+      @include onPhone {
+        font-size: 14px;
+      }
     }
   }
 }
