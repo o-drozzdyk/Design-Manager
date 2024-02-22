@@ -3,7 +3,7 @@
 Welcome to the Design Manager! This application is a simple yet powerful tool for browsing, adding, and editing design entries. Built with the modern Vue 3 framework, it leverages vue-router for routing and TypeScript for a more robust codebase. Data persistence is achieved through the use of localStorage, making your data easily retrievable across browser sessions.
 
 ## Demo
-To see the Design Manager in action, visit the live demo here: [DEMO](https://o-drozzdyk.github.io/Khoroshop-test-task/)
+To see the Design Manager in action, visit the live demo here: [DEMO](https://o-drozzdyk.github.io/Design-Manager/)
 
 ## Features
 
@@ -25,8 +25,8 @@ This project is built using the following technologies:
 To get started with the Design Manager, you can clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/your-username/Khoroshop-test-task.git
-cd Khoroshop-test-task
+git clone https://github.com/your-username/Design-Manager.git
+cd Design-Manager
 npm install
 ```
 
